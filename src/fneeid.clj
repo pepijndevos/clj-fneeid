@@ -17,7 +17,10 @@
           (ask "Is it a Java array?"
             '#{aget aset alenght amap areduce}
             nil
-            nil)
+            (ask "Do you want to iterate over the scalar?"
+              '#{map reduce doseq for loop}
+              nil
+              nil)
           (ask "Is it a boolean?"
             '#{boolean? if when if-not if-let when-let when-not}
             nil
