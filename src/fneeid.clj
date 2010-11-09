@@ -20,11 +20,11 @@
             (ask "Do you want to iterate over the scalar?"
               '#{map reduce doseq for loop}
               nil
-              nil)
+              nil))
           (ask "Is it a boolean?"
             '#{boolean? if when if-not if-let when-let when-not}
             nil
-            nil)))]
+            nil))]
   (def graph (with-meta (partial q (keys (ns-publics 'clojure.core))) (meta q))))
 
 (loop [q graph]
