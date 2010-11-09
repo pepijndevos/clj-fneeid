@@ -1,6 +1,6 @@
 (ns fneeid)
 
-(defn identify 
+(defn ask
   "It's complicated"
   [question function positive negative]
   (with-meta
@@ -12,10 +12,16 @@
           result)))
     {:question question}))
 
-(let [q (identify "Are you working on a scalar?"
-                  #(some #{'coll} (flatten (:arglists (meta (resolve %)))))
-                  nil
-                  nil)]
+(let [q (ask "Are you working on a scalar?"
+          '#{aget aset alenght amap areduce map reduce reductions apply for doseq doall loop}
+          (ask "Is it a Java array?"
+            '#{aget aset alenght amap areduce}
+            nil
+            nil)
+          (ask "Is it a boolean?"
+            '#{boolean? if when if-not if-let when-let when-not}
+            nil
+            nil))]
   (def graph (with-meta (partial q (keys (ns-publics 'clojure.core))) (meta q))))
 
 (loop [q graph]
